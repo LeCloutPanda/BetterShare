@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="settings-container">
+        <h1>BetterShare Configuration</h1>
+        <form id="settingsForm">
+            <!-- Twitter/X Proxy URL -->
+            <section class="setting-section">
+                <label for="twitterProxyUrl">Twitter/X Proxy URL:</label>
+                <input type="text" id="twitterProxyUrl" name="twitterProxyUrl" placeholder="Enter Twitter/X Proxy URL" required>
+            </section>
+
+            <!-- Instagram Proxy URL -->
+            <section class="setting-section">
+                <label for="instagramProxyUrl">Instagram Proxy URL:</label>
+                <input type="text" id="instagramProxyUrl" name="instagramProxyUrl" placeholder="Enter Instagram Proxy URL" required>
+            </section>
+
+            <!-- Tumblr Proxy URL -->
+            <section class="setting-section">
+                <label for="tumblrProxyUrl">Tumblr Proxy URL:</label>
+                <input type="text" id="tumblrProxyUrl" name="tumblrProxyUrl" placeholder="Enter Tumblr Proxy URL" required>
+            </section>
+
+            <!-- Checkbox for Stripping Tracking Data -->
+            <section class="setting-section">
+                <label for="stripTrackingData">Strip tracking data:</label>
+                <input type="checkbox" id="stripTrackingData" name="stripTrackingData">
+            </section>
+
+            <!-- Save Settings Button -->
+            <button type="submit">Save Settings</button>
+            <button id="resetButton">Reset to Default</button>
+        </form>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

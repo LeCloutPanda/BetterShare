@@ -3,11 +3,8 @@
   "name": "Better Share",
   "description": "Basic extension that removes URL tracking and fixes link when sharing content",
   "version": "1.0",
-  "permissions": ["clipboardRead", "clipboardWrite", "activeTab"],
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": "icon.png"
-  },
+  "action": { "default_popup": "popup.html", "default_icon": "logo.png" },
+  "permissions": [ "clipboardRead", "clipboardWrite", "activeTab", "storage" ],
   "content_scripts": [
       {
         "js": [
