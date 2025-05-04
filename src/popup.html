@@ -6,19 +6,14 @@
 </head>
 <body>
   <h1>BetterShare</h1>
-  <form id="inputForm">
-    <label>Twitter: <input type="text" id="twitter" /></label>
-    <label>Instagram: <input type="text" id="instagram" /></label>
-    <label>Tumblr: <input type="text" id="tumblr" /></label>
-    <label>Reddit: <input type="text" id="reddit" /></label>
-    <label>FurAffinity: <input type="text" id="furaffinity" /></label>
-    <label>BSky: <input type="text" id="bsky" /></label>
-    <label>TikTok: <input type="text" id="tiktok" /></label>
-    <div class="buttons">
-      <button type="button" id="saveBtn">Save</button>
-      <button type="button" id="resetBtn">Reset</button>
-    </div>
-  </form>
+  <form id="inputForm"></form>
+  <input type="text" id="stripParams"/>
+  <input type="checkbox" id="stripTracking"/>
+
+  <div class="buttons">
+    <button type="button" id="saveBtn">Save</button>
+    <button type="button" id="resetBtn">Reset</button>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>

@@ -24,12 +24,11 @@ async function filterUrl(baseUrl) {
     try {
         const url = new URL(baseUrl);
 
-        // Get user-defined proxies from chrome.storage
         const settings = await new Promise(resolve => {
-            chrome.storage.local.get(['twitter', 'instagram', 'tumblr', 'reddit', 'furaffinity', 'bsky'], resolve);
+            chrome.storage.local.get(['twitter', 'instagram', 'tumblr', 'reddit', 'furaffinity', 'bsky', 'stripTracking', 'stripParams'], resolve);
         });
 
-        // Fallback defaults if not configured
+        // Fallback defaults for domains
         const domainToProxyMap = {
             'twitter.com': settings.twitter || 'fxtwitter.com',
             'x.com': settings.twitter || 'fxtwitter.com',
@@ -41,7 +40,6 @@ async function filterUrl(baseUrl) {
             'tiktok.com': settings.tiktok || 'vxtiktok.com'
         };
 
-        // Replace known domains
         for (const [domain, proxy] of Object.entries(domainToProxyMap)) {
             if (url.hostname.includes(domain)) {
                 url.hostname = proxy;
@@ -49,14 +47,21 @@ async function filterUrl(baseUrl) {
             }
         }
 
-        // Clean common tracking parameters
-        const trackingParams = [
-            'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'fbclid',
-            'gclid', 'igshid', 'ref', 'ref_src', 'source', 'si', 'ab_channel', 'is_from_webapp',
-            'sender_device'
-        ];
+        const stripParams = (typeof settings.stripParams === 'string' && settings.stripParams.length > 0)
+            ? settings.stripParams.split(',').map(param => param.trim())  
+            : [
+                'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'fbclid',
+                'gclid', 'igshid', 'ref', 'ref_src', 'source', 'si', 'ab_channel', 'is_from_webapp',
+                'sender_device'
+            ];
 
-        trackingParams.forEach(param => url.searchParams.delete(param));
+        if (settings.stripTracking) {
+            stripParams.forEach(param => {
+                if (param) {
+                    url.searchParams.delete(param);
+                }
+            });
+        }
 
         return url.toString();
     } catch (err) {

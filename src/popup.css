@@ -1,8 +1,10 @@
-/* Dark mode base styles */
-body {
+* {
   font-family: 'Segoe UI', Tahoma, sans-serif;
+  color: #ffffff;
+}
+
+body {
   background-color: #1e1e1e;
-  color: #f1f1f1;
   margin: 0;
   padding: 15px;
   width: 300px;
@@ -61,7 +63,6 @@ button:last-child {
 
 #saveBtn {
   background-color: #3ea6ff;
-  color: #fff;
   border: none;
 }
 
@@ -71,10 +72,60 @@ button:last-child {
 
 #resetBtn {
   background-color: #3a3a3a;
-  color: #f1f1f1;
   border: 1px solid #555;
 }
 
 #resetBtn:hover {
   background-color: #555;
+}
+
+.collapsible {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #ffffff00;
+  width: 100%;
+  cursor: pointer;
+  font-size: 16px;
+  position: relative;
+}
+
+.collapsible::before {
+  content: attr(data-label);
+  flex-grow: 0;
+  margin-right: 10px;
+  z-index: 1;
+}
+
+.collapsible::after {
+  content: ">";
+  flex-shrink: 0;
+  margin-left: 10px;
+  font-size: 14px;
+  z-index: 2;
+}
+
+.collapsible span {
+  flex-grow: 1;
+  height: 1px;
+  background: #ccc;
+  margin: 0 10px;
+  position: relative;
+  top: -1px;
+}
+
+.collapsible.active::after {
+  transform: rotate(90deg);
+}
+
+.content {
+  max-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+.content.open {
+  max-height: 200px;
 }
