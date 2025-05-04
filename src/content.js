@@ -1,31 +1,23 @@
-chrome.runtime.onInstalled.addListener(() => {
-    chrome.contextMenus.create({
-        id: "bettershare.copypageurl",
-        title: "[Better Share] Copy page url",
-        contexts: ["page"]
-    });
-});
+document.addEventListener('copy', async (e) => {
+    const clipboard = e.clipboardData || window.clipboardData;
 
-chrome.contextMenus.onClicked.addListener(async (info, tab) => {
-    if (info.menuItemId === "bettershare.copypageurl") {
-        const baseUrl = tab.url;
+    try {
+        // Read the text from the clipboard
+        let baseUrl = await navigator.clipboard.readText();
         console.log('Original URL:', baseUrl);
+
+        // Wait for the filtered URL from filterUrl to be resolved
+        const filteredUrl = await filterUrl(baseUrl);
         
-        const filteredUrl = await filterUrl(baseUrl).then(filtered => {
-            // Inject clipboard writing code into the page context
-            chrome.scripting.executeScript({
-                target: { tabId: tab.id },
-                func: (text) => {
-                    navigator.clipboard.writeText(text).then(() => {
-                        console.log("Copied to clipboard:", text);
-                    }).catch(err => {
-                        console.error("Clipboard write failed:", err);
-                    });
-                },
-                args: [filtered]
-            });
-        });
+        // Write the filtered URL back to the clipboard
+        await navigator.clipboard.writeText(filteredUrl);
+
+        console.log('Filtered URL written to clipboard:', filteredUrl);
+    } catch (error) {
+        console.error('Error processing the clipboard data:', error);
     }
+
+    e.preventDefault();
 });
 
 async function filterUrl(baseUrl) {
