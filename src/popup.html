@@ -1,47 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
-    <link rel="stylesheet" href="styles.css">
+  <title>BetterShare Settings</title>
+  <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-    <div class="settings-container">
-        <h1>BetterShare Configuration</h1>
-        <form id="settingsForm">
-            <!-- Twitter/X Proxy URL -->
-            <section class="setting-section">
-                <label for="twitterProxyUrl">Twitter/X Proxy URL:</label>
-                <input type="text" id="twitterProxyUrl" name="twitterProxyUrl" placeholder="Enter Twitter/X Proxy URL" required>
-            </section>
-
-            <!-- Instagram Proxy URL -->
-            <section class="setting-section">
-                <label for="instagramProxyUrl">Instagram Proxy URL:</label>
-                <input type="text" id="instagramProxyUrl" name="instagramProxyUrl" placeholder="Enter Instagram Proxy URL" required>
-            </section>
-
-            <!-- Tumblr Proxy URL -->
-            <section class="setting-section">
-                <label for="tumblrProxyUrl">Tumblr Proxy URL:</label>
-                <input type="text" id="tumblrProxyUrl" name="tumblrProxyUrl" placeholder="Enter Tumblr Proxy URL" required>
-            </section>
-
-            <!-- Checkbox for Stripping Tracking Data -->
-            <section class="setting-section">
-                <label for="stripTrackingData">Strip tracking data:</label>
-                <input type="checkbox" id="stripTrackingData" name="stripTrackingData">
-            </section>
-
-            <!-- Save Settings Button -->
-            <button type="submit">Save Settings</button>
-            <button id="resetButton">Reset to Default</button>
-        </form>
-        <button id="copyUrlButton">Copy page url</button>
+  <h1>BetterShare</h1>
+  <form id="inputForm">
+    <label>Twitter: <input type="text" id="twitter" /></label>
+    <label>Instagram: <input type="text" id="instagram" /></label>
+    <label>Tumblr: <input type="text" id="tumblr" /></label>
+    <label>Reddit: <input type="text" id="reddit" /></label>
+    <label>FurAffinity: <input type="text" id="furaffinity" /></label>
+    <label>BSky: <input type="text" id="bsky" /></label>
+    <label>TikTok: <input type="text" id="tiktok" /></label>
+    <div class="buttons">
+      <button type="button" id="saveBtn">Save</button>
+      <button type="button" id="resetBtn">Reset</button>
     </div>
-
-    <script src="popup.js"></script>
-    <script src="filter.js"></script>
+  </form>
+  <script src="popup.js"></script>
 </body>
 </html>

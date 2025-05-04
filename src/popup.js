@@ -1,53 +1,37 @@
-document.getElementById('copyUrlButton').addEventListener('click', async function() {
-  chrome.tabs.query({ active: true, currentWindow: true }, async function(tabs) {
-    await navigator.clipboard.writeText(await filterUrl(tabs[0].url));
-    window.close();
-  });
-});
-
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('settingsForm');
-    const twitterProxyUrl = document.getElementById('twitterProxyUrl');
-    const tumblrProxyUrl = document.getElementById('tumblrProxyUrl');
-    const instagramProxyUrl = document.getElementById('instagramProxyUrl');
-    const stripTrackingData = document.getElementById('stripTrackingData');
+    const fields = ['twitter', 'instagram', 'tumblr', 'reddit', 'furaffinity', 'bsky', 'tiktok'];
+    const defaultValues = {
+        twitter: 'fxtwitter.com',
+        instagram: 'ddinstagram.com',
+        tumblr: 'tpmblr.com',
+        reddit: 'rxddit.com',
+        furaffinity: 'fxfuraffinity.net',
+        bsky: 'fxbsky.app',
+        tiktok: 'vxtiktok.com'
+    };
 
-    chrome.storage.sync.get(['twitterProxyUrl', 'tumblrProxyUrl', 'instagramProxyUrl', 'stripTrackingData'], (data) => {
-        if (data.twitterProxyUrl) twitterProxyUrl.value = data.twitterProxyUrl;
-        if (data.tumblrProxyUrl) tumblrProxyUrl.value = data.tumblrProxyUrl;
-        if (data.instagramProxyUrl) instagramProxyUrl.value = data.instagramProxyUrl;
-        if (data.stripTrackingData !== undefined) stripTrackingData.checked = data.stripTrackingData;
-    });
-
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const settings = {
-            twitterProxyUrl: twitterProxyUrl.value,
-            tumblrProxyUrl: tumblrProxyUrl.value,
-            instagramProxyUrl: instagramProxyUrl.value,
-            stripTrackingData: stripTrackingData.checked,
-        };
-
-        chrome.storage.sync.set(settings, () => {
-            alert('Settings saved!');
+    // Load saved values
+    chrome.storage.local.get(fields, (result) => {
+        fields.forEach(field => {
+            document.getElementById(field).value = result[field] || '';
         });
     });
-
-    resetButton.addEventListener('click', () => {
-        const defaultSettings = {
-            twitterProxyUrl: 'fxtwitter.com',
-            tumblrProxyUrl: 'tpmblr.com',
-            instagramProxyUrl: 'ddinstagram.com',
-            stripTrackingData: true,
-        };
-
-        twitterProxyUrl.value = defaultSettings.twitterProxyUrl;
-        tumblrProxyUrl.value = defaultSettings.tumblrProxyUrl;
-        instagramProxyUrl.value = defaultSettings.instagramProxyUrl;
-        stripTrackingData.checked = defaultSettings.stripTrackingData;
-
-        chrome.storage.sync.set(defaultSettings, () => {
-            alert('Settings have been reset to default.');
+  
+    // Save values
+    document.getElementById('saveBtn').addEventListener('click', () => {
+        const data = {};
+        fields.forEach(field => {
+            data[field] = document.getElementById(field).value;
         });
+        chrome.storage.local.set(data, () => {});
+    });
+  
+    // Reset
+    document.getElementById('resetBtn').addEventListener('click', () => {
+        fields.forEach(field => {
+            const defaultValue = defaultValues[field];
+            document.getElementById(field).value = defaultValue;
+        });
+        chrome.storage.local.set(defaultValues, () => {});
     });
 });

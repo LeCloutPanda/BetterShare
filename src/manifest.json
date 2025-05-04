@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Better Share",
   "description": "Basic extension that removes URL tracking and fixes link when sharing content",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "action": { "default_popup": "popup.html", "default_icon": "logo.png" },
   "permissions": [ "clipboardRead", "clipboardWrite", "activeTab", "storage", "tabs", "scripting", "contextMenus" ],
   "content_scripts": [
@@ -11,11 +11,14 @@
         "content.js"
       ],
       "matches": [
-        "https://*.youtube.com/*",
-        "https://*.x.com/*",
-        "https://*.instagram.com/*",
-        "https://*.tumblr.com/*",
-        "https://*.reddit.com/*"
+        "*://*.youtube.com/*",
+        "*://*.x.com/*",
+        "*://*.instagram.com/*",
+        "*://*.tumblr.com/*",
+        "*://*.reddit.com/*",
+        "*://*.furaffinity.net/*",
+        "*://*.bsky.app/*",
+        "*://*.tiktok.com/*"
       ]
     }
   ],
