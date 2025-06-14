@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Toggle Entries</title>
+  <style>
+    .toggle-header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #inputForm {
+      display: none; /* Hidden by default */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-top: none;
+    }
+
+    .caret {
+      transition: transform 0.3s ease;
+    }
+
+    .caret.rotate {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body>
+
+<div>
+  <div class="toggle-header" id="toggleButton">
+    <span>Entries</span>
+    <span class="caret" id="caret">&#9650;</span> <!-- ▲ -->
+  </div>
+  
+  <div id="inputForm">
+    <p>This is the content under Entries.</p>
+    <!-- You can put form elements here -->
+  </div>
+</div>
+
+<script>
+  const toggleButton = document.getElementById('toggleButton');
+  const inputForm = document.getElementById('inputForm');
+  const caret = document.getElementById('caret');
+
+  let isVisible = false;
+
+  toggleButton.addEventListener('click', () => {
+    isVisible = !isVisible;
+    inputForm.style.display = isVisible ? 'block' : 'none';
+    caret.classList.toggle('rotate', isVisible);
+    caret.innerHTML = isVisible ? '&#9650;' : '&#9660;'; // ▲ or ▼
+  });
+</script>
+
+</body>
+</html>

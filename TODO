@@ -1,0 +1,1 @@
+Rewrite settings to make it read a json on load/update then when page opens automatically 

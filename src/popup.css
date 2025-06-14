@@ -5,35 +5,32 @@
 
 body {
   background-color: #1e1e1e;
-  margin: 0;
-  padding: 15px;
   width: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
   font-size: 20px;
-  margin-bottom: 15px;
   color: #ffffff;
   text-align: center;
 }
 
 form label {
   display: block;
-  margin-bottom: 12px;
-  font-weight: 500;
   color: #cccccc;
 }
 
 input[type="text"] {
-  width: 100%;
-  padding: 8px 10px;
+  width: 50%;
+  padding: 8px;
   font-size: 14px;
   background-color: #2d2d2d;
   border: 1px solid #444;
-  border-radius: 5px;
+  border-radius: 4px;
   color: #f1f1f1;
   box-sizing: border-box;
-  transition: border-color 0.2s ease-in-out;
+  transition: border-color 0.3s ease;
 }
 
 input[type="text"]:focus {
@@ -41,29 +38,54 @@ input[type="text"]:focus {
   outline: none;
 }
 
+input[type="text"]:hover {
+  border-color: #3ea6ff;
+  outline: none;
+}
+
 .buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+}
+
+.piece {
+  border: 1px solid #444;
+  padding: 4px;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.piece:hover {
+  border-color: #3ea6ff;
 }
 
 button {
   flex: 1;
-  padding: 10px;
   font-size: 14px;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
   margin-right: 8px;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.3s ease;
 }
 
 button:last-child {
   margin-right: 0;
 }
 
+#entryCreationBtn {
+  background-color: #3ea6ff;
+  border: none;
+  transition: border-color 0.3s ease;
+}
+
+#entryCreationBtn:hover {
+  background-color: #1a85d6;
+}
+
 #saveBtn {
   background-color: #3ea6ff;
   border: none;
+  transition: border-color 0.3s ease;
 }
 
 #saveBtn:hover {
@@ -71,52 +93,13 @@ button:last-child {
 }
 
 #resetBtn {
-  background-color: #3a3a3a;
+  background-color: #ff3e3e;
   border: 1px solid #555;
+  transition: border-color 0.3s ease;
 }
 
 #resetBtn:hover {
-  background-color: #555;
-}
-
-.collapsible {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: #ffffff00;
-  width: 100%;
-  cursor: pointer;
-  font-size: 16px;
-  position: relative;
-}
-
-.collapsible::before {
-  content: attr(data-label);
-  flex-grow: 0;
-  margin-right: 10px;
-  z-index: 1;
-}
-
-.collapsible::after {
-  content: ">";
-  flex-shrink: 0;
-  margin-left: 10px;
-  font-size: 14px;
-  z-index: 2;
-}
-
-.collapsible span {
-  flex-grow: 1;
-  height: 1px;
-  background: #ccc;
-  margin: 0 10px;
-  position: relative;
-  top: -1px;
-}
-
-.collapsible.active::after {
-  transform: rotate(90deg);
+  background-color: #d61a1a;
 }
 
 .content {
@@ -124,8 +107,94 @@ button:last-child {
   overflow: hidden;
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
+  align-items: center;
 }
 
 .content.open {
   max-height: 200px;
+}
+
+.entryHeader, .entryCreation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.entryCreationButtons:first-child {
+  overflow: hidden;
+}
+
+.entryList {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.entryList.open {
+  overflow: auto;
+  overflow-x: hidden;
+  max-height: calc(40px * 6);
+}
+
+.entryCreationButtons {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.entryCreationButtons.open {
+  overflow: hidden;
+  max-height: calc(40px * 6);
+}
+
+.entryItem  {
+  display: flex;
+  padding: 4px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  flex-direction: column;
+  transition: border-color 0.3s ease;
+}
+
+.entryItem:hover {
+  border-color: #3ea6ff;
+}
+
+.entryItemHeader {
+  max-height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.entryOptions {
+  display: flex;
+  align-items: center;
+}
+
+.entryEnable {
+  width: 32px;             
+  height: 32px;            
+  max-width: 32px;         
+}
+
+.entryRemove {
+  width: 32px;              
+  height: 32px;        
+  margin: 0;        
+  max-width: 32px;       
+  background-color: #ff3e3e;       
+}
+
+.entryRemove:hover {
+  background-color: #d61a1a;
 }

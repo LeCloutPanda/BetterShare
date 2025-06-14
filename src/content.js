@@ -2,19 +2,13 @@ document.addEventListener('copy', async (e) => {
     const clipboard = e.clipboardData || window.clipboardData;
 
     try {
-        // Read the text from the clipboard
         let baseUrl = await navigator.clipboard.readText();
-        console.log('Original URL:', baseUrl);
-
-        // Wait for the filtered URL from filterUrl to be resolved
         const filteredUrl = await filterUrl(baseUrl);
-        
-        // Write the filtered URL back to the clipboard
         await navigator.clipboard.writeText(filteredUrl);
 
-        console.log('Filtered URL written to clipboard:', filteredUrl);
+        console.log("[BetterShare] Parsed Url: ", filteredUrl);
     } catch (error) {
-        console.error('Error processing the clipboard data:', error);
+        console.error("[BetterShare] Failed to parse Url: ", err);
     }
 
     e.preventDefault();
@@ -24,30 +18,46 @@ async function filterUrl(baseUrl) {
     try {
         const url = new URL(baseUrl);
 
+        var loadedMappings = [];
         const settings = await new Promise(resolve => {
-            chrome.storage.local.get(['twitter', 'instagram', 'tumblr', 'reddit', 'furaffinity', 'bsky', 'stripTracking', 'stripParams'], resolve);
+            chrome.storage.local.get(['mappings'], resolve);
+        });
+        const mappings = settings.mappings;
+        mappings.split("\n").forEach(map => {
+            var values = map.split(":");
+            var mask = values[0];
+            var value = values[1];
+            var enabled = values[2];
+
+            if (mask === undefined) return;
+            if (mask === undefined) return;
+            if (enabled === undefined) return;
+
+            const data = { 
+                "mask": mask,
+                "value": value,
+                "enabled": enabled
+            }
+
+            loadedMappings.push(data);
         });
 
-        // Fallback defaults for domains
-        const domainToProxyMap = {
-            'twitter.com': settings.twitter || 'fxtwitter.com',
-            'x.com': settings.twitter || 'fxtwitter.com',
-            'instagram.com': settings.instagram || 'ddinstagram.com',
-            'tumblr.com': settings.tumblr || 'tpmblr.com',
-            'reddit.com': settings.reddit || 'rxddit.com',
-            'furaffinity.net': settings.furaffinity || 'fxfuraffinity.net',
-            'bsky.app': settings.bsky || 'fxbsky.app',
-            'tiktok.com': settings.tiktok || 'vxtiktok.com'
-        };
-
-        for (const [domain, proxy] of Object.entries(domainToProxyMap)) {
-            if (url.hostname.includes(domain)) {
-                url.hostname = proxy;
+        for (const proxy of loadedMappings) {
+            if (proxy.enabled === "true" && url.hostname.includes(proxy.mask)) {
+                url.hostname = url.hostname.replace(proxy.mask, proxy.value);
                 break;
             }
         }
+        
+        return url.toString();
+    } catch (err) {
+        console.error("[BetterShare] Failed to filter Url: ", err);
+        return baseUrl;
+    }
+}
 
-        const stripParams = (typeof settings.stripParams === 'string' && settings.stripParams.length > 0)
+
+/*        const stripParams = (typeof settings.stripParams === 'string' && settings.stripParams.length > 0)
             ? settings.stripParams.split(',').map(param => param.trim())  
             : [
                 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'fbclid',
@@ -62,10 +72,4 @@ async function filterUrl(baseUrl) {
                 }
             });
         }
-
-        return url.toString();
-    } catch (err) {
-        console.error('Failed to filter URL:', err);
-        return baseUrl;
-    }
-}
+            */
