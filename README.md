@@ -13,10 +13,10 @@ If you come across any bugs or even have suggestions please make an [issue](http
 - [x] **Make a better popup menu**: Finish the popup menu to add setting supports and make it look prettier
 - [x] **Finish config page**: Finish and implement configuration options to allow custom replacement urls
 - [x] **Option to add custom urls**: If possible allow the user to add their own url and redirect to the extension rather then needing to wait for official support
-- [] Finish styling buttons and make it look prettier
-- [] Add option to view raw config data and then save it
-- [] Strip tracking url parameters and such
-- [] Clean the code up to be more performant
+- [ ] Finish styling buttons and make it look prettier
+- [ ] Add option to view raw config data and then save it
+- [ ] Strip tracking url parameters and such
+- [ ] Clean the code up to be more performant
 
 ### Example Config
 This is how the configuration is stored and processed. Entries are automatically read and applied upon saving, making it easy to add new replacements if a site doesn't already exist.
