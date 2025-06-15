@@ -120,7 +120,7 @@ async function LoadConfig() {
     loadedMappings = [];
 
     const settings = await new Promise(resolve => {
-        browser.storage.local.get(['mappings'], resolve);
+        chrome.storage.local.get(['mappings'], resolve);
     });
 
     const mappings = settings.mappings;

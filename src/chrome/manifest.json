@@ -7,19 +7,8 @@
   "permissions": [ "clipboardRead", "clipboardWrite", "activeTab", "storage", "tabs", "scripting", "contextMenus" ],
   "content_scripts": [
     {
-      "js": [
-        "content.js"
-      ],
-      "matches": [
-        "*://*.youtube.com/*",
-        "*://*.x.com/*",
-        "*://*.instagram.com/*",
-        "*://*.tumblr.com/*",
-        "*://*.reddit.com/*",
-        "*://*.furaffinity.net/*",
-        "*://*.bsky.app/*",
-        "*://*.tiktok.com/*"
-      ]
+      "js": ["content.js"],
+      "matches": ["http://*/*", "https://*/*", "file://*/*"]
     }
   ],
   "background": {
