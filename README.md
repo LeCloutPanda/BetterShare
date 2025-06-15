@@ -30,3 +30,10 @@ furaffinity.net:true
 bsky.app:fxbsky.app:true
 tiktok.com:vxtiktok.com:true
 ```
+
+### Building
+For Firefox
+```
+cd .\src\firefox\
+web-ext build -o
+```
