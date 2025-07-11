@@ -51,6 +51,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "filterUrl" && request.clipboard) {
+        if (!isValidHttpUrl(request.clipboard)) return false;
         filterUrl(request.clipboard).then((url) => {
             console.log(url);
             sendResponse({ url });
@@ -66,7 +67,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 async function filterUrl(baseUrl) {
     try {
         const url = new URL(baseUrl);
-
+        
         var loadedMappings = [];
         const settings = await new Promise(resolve => {
             chrome.storage.local.get(['mappings'], resolve);
@@ -103,4 +104,8 @@ async function filterUrl(baseUrl) {
         console.error("[BetterShare] Failed to filter Url: ", err);
         return baseUrl;
     }
+}
+
+function isValidHttpUrl(url) {
+    return /^https?:\/\/[^\s/$.?#].[^\s]*$/i.test(url);
 }

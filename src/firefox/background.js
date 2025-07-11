@@ -95,3 +95,7 @@ async function filterUrl(baseUrl) {
         return baseUrl;
     }
 }
+
+function isValidHttpUrl(url) {
+    return /^https?:\/\/[^\s/$.?#].[^\s]*$/i.test(url);
+}
