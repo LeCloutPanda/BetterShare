@@ -30,8 +30,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
             chrome.tabs.sendMessage(tab.id, { action: "copyToClipboard", content: filteredUrl }, (response) => {
                 if (chrome.runtime.lastError) {
                     console.error("[BetterShare] Error: ", chrome.runtime.lastError.message);
-                } else {
-                    console.error("[BetterShare] Error: ", response?.error);
                 }
             });
         } catch (err) {
@@ -93,7 +91,7 @@ async function filterUrl(baseUrl) {
         });
 
         for (const proxy of loadedMappings) {
-            if (proxy.enabled === "true" && url.hostname.includes(proxy.mask)) {
+            if (proxy.enabled === "true" && url.hostname == proxy.mask) {
                 url.hostname = url.hostname.replace(proxy.mask, proxy.value);
                 break;
             }
