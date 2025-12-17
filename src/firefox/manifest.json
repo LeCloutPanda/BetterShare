@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Better Share",
   "description": "An extension that just cleans up URLs for embedding and also allows stripping of tracking data.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": "logo.png"

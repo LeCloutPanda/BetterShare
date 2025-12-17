@@ -7,6 +7,12 @@ furaffinity.net:true
 bsky.app:fxbsky.app:true
 tiktok.com:vxtiktok.com:true`;
 
+const params = [
+    'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'fbclid',
+    'gclid', 'igshid', 'ref', 'ref_src', 'source', 'si', 'ab_channel', 'is_from_webapp',
+    'sender_device'
+];
+
 var loadedMappings = [];
 
 var entriesVisible = false;
